@@ -239,8 +239,6 @@ const options = {
 })
 
 
-
-
 //App listening at port:3000
 app.listen(port, () => {
 	console.log(`Image analysis application listening at http://localhost:${port}`)
