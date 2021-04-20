@@ -1,21 +1,34 @@
-'use strict';
 
 const request = require('request');
 const express = require('express');
 const app = express();
 const port = 3000;
-const async = require('async');
-const fs = require('fs');
-const https = require('https');
-const path = require("path");
-const createReadStream = require('fs').createReadStream
-const sleep = require('util').promisify(setTimeout);
 const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient;
 const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
 const bodyParser = require('body-parser');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+const optionsDoc = {
+  swaggerDefinition: {
+    info: {
+      title: "Sidney's Image Analysis API",
+      version: '1.0.0',
+      description: 'API Documentation showing all endpoints for image analysis API.\n\n IMAGE SPECIFICATIONS:\n - The image must be presented in JPEG, PNG, GIF, or BMP format.\n - The file size of the image must be less than 4 megabytes (MB).\n - The dimensions of the image must be greater than 50 x 50 pixels',
+    },
+     host: 'localhost:3000',
+     basePath: '/',
+  },
+  apis: ['./analyze-image.js'],
+};
+
+const specs = swaggerJsdoc(optionsDoc);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, {explorer: true}));
+app.use(cors());
 
 /**
  * AUTHENTICATE
@@ -34,6 +47,28 @@ const computerVisionClient = new ComputerVisionClient(
 */
 
 //Endpoint used to describe an images categories and color.
+
+/**
+ * @swagger
+ * /describeImage:
+ *    post:
+ *      description: Receives an image URL and returns general information
+ *      summary: Focuses on an image's description, category, and color; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze an image and receive general information.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/describeImage', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
@@ -68,6 +103,28 @@ const options = {
 })
 
 //Endpoint used to find brands and colors.
+
+/**
+ * @swagger
+ * /describeBrand:
+ *    post:
+ *      description: Receives an image URL and returns information about Brands
+ *      summary: Receives an image URL and returns information about Brands; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze brands on an image.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/describeBrand', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
@@ -102,6 +159,28 @@ const options = {
 })
 
 //Endpoint used to describe and detect faces.
+
+/**
+ * @swagger
+ * /detectFaces:
+ *    post:
+ *      description: Receives an image URL and returns facial information
+ *      summary: Receives an image URL and returns returns facial information; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze an image and return facial information.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/detectFaces', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
@@ -136,6 +215,28 @@ const options = {
 })
 
 //Endpoint used to detect celebrities.
+
+/**
+ * @swagger
+ * /detectCelebrities:
+ *    post:
+ *      description: Receives an image URL and detects celebrities
+ *      summary: Receives an image URL and returns celebrity information; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze brands on an image.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/detectCelebrities', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
@@ -170,6 +271,28 @@ const options = {
 })
 
 //Endpoint used to detect Landmarks.
+
+/**
+ * @swagger
+ * /detectLandmarks:
+ *    post:
+ *      description: Receives an image URL and detects landmarks
+ *      summary: Receives an image URL and returns landmark information; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze an image and receive landmark information.
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/detectLandmarks', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
@@ -205,6 +328,28 @@ const options = {
 
 //Endpoint used to detect image type. Rated 0-3 based on image's match to clipart. 
 //Boolean 0 or 1 use to determine if image is drawn.
+
+/**
+ * @swagger
+ * /detectType:
+ *    post:
+ *      description: Receives an image URL and detects clipart/hand-drawn images
+ *      summary: Receives an image URL and detects clipart/hand-drawn images; replace "string" field with your image URL!
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: imageUrl
+ *          description: Analyze an image and detect clipart/hand-drawn, image match is rated 0-3 based on clipart accuracy. Hand-drawn detection is a boolean variable, 0 (false) or 1 (true)
+ *          schema:
+ *            type: object
+ *            properties:
+ *              imageUrl:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: Image Successfully Analyzed
+ */
 app.post('/detectType', function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
