@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -50,7 +51,7 @@ const computerVisionClient = new ComputerVisionClient(
 
 /**
  * @swagger
- * /describeImage:
+ * /detectImage:
  *    post:
  *      description: Receives an image URL and returns general information
  *      summary: Focuses on an image's description, category, and color; replace "string" field with your image URL!
@@ -69,7 +70,7 @@ const computerVisionClient = new ComputerVisionClient(
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/describeImage', function (req, res) {
+app.post('/detectImage', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
@@ -106,7 +107,7 @@ const options = {
 
 /**
  * @swagger
- * /describeBrand:
+ * /detectBrand:
  *    post:
  *      description: Receives an image URL and returns information about Brands
  *      summary: Receives an image URL and returns information about Brands; replace "string" field with your image URL!
@@ -125,7 +126,7 @@ const options = {
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/describeBrand', function (req, res) {
+app.post('/detectBrand', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
@@ -181,7 +182,7 @@ const options = {
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/detectFaces', function (req, res) {
+app.post('/detectFaces', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
@@ -237,7 +238,7 @@ const options = {
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/detectCelebrities', function (req, res) {
+app.post('/detectCelebrities', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
@@ -293,7 +294,7 @@ const options = {
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/detectLandmarks', function (req, res) {
+app.post('/detectLandmarks', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
@@ -340,7 +341,7 @@ const options = {
  *      parameters:
  *        - in: body
  *          name: imageUrl
- *          description: Analyze an image and detect clipart/hand-drawn, image match is rated 0-3 based on clipart accuracy. Hand-drawn detection is a boolean variable, 0 (false) or 1 (true)
+ *          description: Analyze an image and detect clipart/hand-drawn, image match is rated 0 (not clipart) to 3 (excellent clipart). Hand-drawn detection is a boolean variable, 0 (not hand-drawn) or 1 (is hand-drawn)
  *          schema:
  *            type: object
  *            properties:
@@ -350,7 +351,7 @@ const options = {
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/detectType', function (req, res) {
+app.post('/detectType', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
