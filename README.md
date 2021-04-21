@@ -75,14 +75,21 @@ Doing so will take you to a seperate tab that has its own URL address. That is t
 
 ## Using the different endpoints
 
-Each endpoints serves a unique purpose.
+Each endpoints serves a unique purpose. Depending on what information you wish to gather from an image will determine what endpoint you will use.
 
+```
 61.161.161.008/detectGeneral - Receives an image URL and returns general information such as description, category, and colors.
-61.161.161.008/detectBrand - Receives an image URL and returns information about Brands.
-61.161.161.008/detectFaces - Receives an image URL and returns facial information.
-61.161.161.008/detectCelebrities - Receives an image URL and detects celebrities.
-61.161.161.008/detectLandmarks - Receives an image URL and detects landmarks.
-61.161.161.008/detectType - Receives an image URL and detects clipart/hand-drawn images.
+
+63.161.161.008/detectBrand - Receives an image URL and returns information about Brands.
+
+65.161.161.008/detectFaces - Receives an image URL and returns facial information.
+
+67.161.161.008/detectCelebrities - Receives an image URL and detects celebrities.
+
+69.161.161.008/detectLandmarks - Receives an image URL and detects landmarks.
+
+71.161.161.008/detectType - Receives an image URL and detects clipart/hand-drawn images.
+```
 
 ## SwaggerUI Link and instructions
 
