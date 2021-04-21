@@ -62,7 +62,7 @@ Here is an example of a valid URL request.
 }
 ```
 
-### How to get an images URL
+### How to get an image's URL
 
 Getting an images URL is easy. Lets say you go to google and search for an image. Once that image is open, right-click and select "Open image in a new tab".
 Doing so will take you to a seperate tab that has its own URL address. That is the address that you want to copy and paste into the request body.
