@@ -51,10 +51,10 @@ const computerVisionClient = new ComputerVisionClient(
 
 /**
  * @swagger
- * /detectImage:
+ * /detectGeneral:
  *    post:
  *      description: Receives an image URL and returns general information
- *      summary: Focuses on an image's description, category, and color; replace "string" field with your image URL!
+ *      summary: Receives an image URL and returns general information such as description, category, and colors; replace "string" field with your image URL!
  *      consumes:
  *        - application/json
  *      parameters:
@@ -70,7 +70,7 @@ const computerVisionClient = new ComputerVisionClient(
  *        200:
  *          description: Image Successfully Analyzed
  */
-app.post('/detectImage', check('imageUrl').isURL(), function (req, res) {
+app.post('/detectGeneral', check('imageUrl').isURL(), function (req, res) {
 
   var uriBase = endpoint + 'vision/v3.1/analyze';
   const imageUrl = req.body.imageUrl
