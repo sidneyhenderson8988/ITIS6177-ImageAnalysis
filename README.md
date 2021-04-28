@@ -20,7 +20,7 @@ Postman
 First, open Postman and enter the address below in the "Enter Request URL" field located at the top of Postman.
 
 ```
-61.161.161.008/
+67.207.85.230/
 ```
 
 Also, set the request type to "Post".
@@ -36,10 +36,10 @@ detectLandmarks
 detectType
 ```
 
-An example of a valid request would look like:
+An example of a valid request URL would look like:
 
 ```
-61.161.161.008/detectFaces
+67.207.85.230/detectFaces
 ```
 
 Next, we need to create a request body to send to the server. This is very simple, as only one field is required.
@@ -54,7 +54,8 @@ Be sure to also select "raw" and "JSON" as well.
   "imageUrl": "Paste_your_image_URL_here!"
 }
 ```
-Here is an example of a valid URL request.
+
+Here is an example of a valid request.
 
 ```
 {
@@ -78,25 +79,26 @@ Doing so will take you to a seperate tab that has its own URL address. That is t
 Each endpoints serves a unique purpose. Depending on what information you wish to gather from an image will determine what endpoint you will use.
 
 ```
-61.161.161.008/detectGeneral - Receives an image URL and returns general information such as description, category, and colors.
+67.207.85.230/detectGeneral - Receives an image URL and returns general information such as description, category, and colors.
 
-63.161.161.008/detectBrand - Receives an image URL and returns information about Brands.
+67.207.85.230/detectBrand - Receives an image URL and returns information about Brands.
 
-65.161.161.008/detectFaces - Receives an image URL and returns facial information.
+67.207.85.230/detectFaces - Receives an image URL and returns facial information.
 
-67.161.161.008/detectCelebrities - Receives an image URL and detects celebrities.
+67.207.85.230/detectCelebrities - Receives an image URL and detects celebrities.
 
-69.161.161.008/detectLandmarks - Receives an image URL and detects landmarks.
+67.207.85.230/detectLandmarks - Receives an image URL and detects landmarks.
 
-71.161.161.008/detectType - Receives an image URL and detects clipart/hand-drawn images.
+67.207.85.230/detectType - Receives an image URL and detects clipart/hand-drawn images.
 ```
 
 ## SwaggerUI Link and instructions
 
 If you are not using Postman, you can simply access this URL below to test out my API in your browser.
 When trying out the endpoints, all you have to do is replace the "string" field with your image URL.
+
 ```
-61.161.161.008/docs
+67.207.85.230/docs
 ```
 
 ## Versioning
@@ -105,4 +107,4 @@ This is version 1.0.0
 
 ## Authors
 
-* **Sidney Henderson** 
+- **Sidney Henderson**
