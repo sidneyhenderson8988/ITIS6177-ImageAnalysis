@@ -21,7 +21,7 @@ const optionsDoc = {
       version: '1.0.0',
       description: 'API Documentation showing all endpoints for image analysis API.\n\n IMAGE SPECIFICATIONS:\n - The image must be presented in JPEG, PNG, GIF, or BMP format.\n - The file size of the image must be less than 4 megabytes (MB).\n - The dimensions of the image must be greater than 50 x 50 pixels',
     },
-     host: 'localhost:3000',
+     host: '67.207.85.230:3000',
      basePath: '/',
   },
   apis: ['./analyze-image.js'],
@@ -387,5 +387,5 @@ const options = {
 
 //App listening at port:3000
 app.listen(port, () => {
-	console.log(`Image analysis application listening at http://localhost:${port}`)
+	console.log(`Image analysis application listening at http://67.207.85.230:${port}`)
 });
